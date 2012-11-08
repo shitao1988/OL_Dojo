@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>测试</title>
+    <style type="text/css">
+        @import "http://serverapi.arcgisonline.com/jsapi/arcgis/1.5/js/dojo/dijit/themes/tundra/tundra.css";
+        @import "http://serverapi.arcgisonline.com/jsapi/arcgis/1.5/js/dojo/dijit/themes/soria/soria.css";
+        @import "js/tobby/widgets/themes/darkangel/darkangel.css";
+		@import "js/tobby/widgets/themes/darkangel/override.css";
+    </style>
+    <script type="text/javascript">
+        djConfig = {
+            parseOnLoad: true,
+            isDebug: (window.location.search.indexOf("debug") > -1),
+            usePlainJson: true,
+            baseUrl: './',
+            modulePaths: { 'tobby.widgets': 'js/tobby/widgets' }
+        };
+	</script>
+ <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
+  <script type="text/javascript" src="http://openlayers.org/api/2.12/OpenLayers.js"></script>
+	<script type="text/javascript">
+	  //  dojo.require("esri.map");
+	    dojo.require("dojo.parser");
+	    dojo.require("tobby.widgets._BaseWidget");
+	    dojo.require("tobby.widgets.MoveableWidgetFrame");
+
+	    var map;
+	    function Init() {
+	           var map = new OpenLayers.Map("map");
+                
+                // Layers
+                var osm = new OpenLayers.Layer.OSM("OpenStreetMap");
+             
+                map.addLayers([osm]);
+                
+                // Center the map viewport
+                map.setCenter(new OpenLayers.LonLat(0,0), 2);    
+
+	        showWidget();
+	    }
+
+	    dojo.addOnLoad(Init);
+
+	    function showWidget() {
+	        var tocWidget = new tobby.widgets._BaseWidget();
+	        tocWidget.setTitle("小部件测试");
+	        tocWidget.setMap(map);
+	        tocWidget.startup();
+
+	        var frame = new tobby.widgets.MoveableWidgetFrame();
+	        frame.setWidget(tocWidget);	        	        
+	        dojo.style(frame.domNode, "top", "100px");
+	        dojo.style(frame.domNode, "left", "100px");
+	        frame.placeAt(dojo.body());
+	        frame.startup();
+	    }
+	</script>
+</head>
+<body class="soria">    
+    <div id="map"  style="position: relative; height: 1000px; border: 1px solid #000;">
+    </div>	
+</body>
+</html>

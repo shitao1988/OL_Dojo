@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>测试</title>
+    <style type="text/css">
+        @import "js/tobby/widgets/themes/darkangel/darkangel.css";
+		@import "js/tobby/widgets/themes/darkangel/override.css";
+    </style>
+    <script type="text/javascript">
+        djConfig = {
+            parseOnLoad: true,
+            isDebug: (window.location.search.indexOf("debug") > -1),
+            usePlainJson: true,
+            baseUrl: './',
+            modulePaths: { 'tobby.widgets': 'js/tobby/widgets' }
+        };
+	</script>
+  <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
+  <script type="text/javascript" src="http://openlayers.org/api/2.12/OpenLayers.js"></script>
+	<script type="text/javascript">
+	  //  dojo.require("esri.map");
+	    dojo.require("dojo.parser");
+	    dojo.require("tobby.widgets._BaseWidget");
+	    dojo.require("tobby.widgets.MenuFrame");
+	    dojo.require("tobby.widgets.Menu");
+	    dojo.require("tobby.widgets.MenuItem");
+	    dojo.require("tobby.widgets.WidgetContainer");
+
+	    var map;
+	    var testWidget = null;
+	    
+	    function Init() {
+	           var map = new OpenLayers.Map("map");
+                
+                // Layers
+                var osm = new OpenLayers.Layer.OSM("OpenStreetMap");
+             
+                map.addLayers([osm]);
+                
+                // Center the map viewport
+                map.setCenter(new OpenLayers.LonLat(0,0), 2);    
+
+	        createWidget();
+	         dojo.publish("showWidget", [testWidget]);
+	        createMenu();
+
+	    }
+
+	    dojo.addOnLoad(Init);
+
+	    function createMenu() {
+	        var menuFrame = dijit.byId('menuFrame');
+	        var logoUrl = dojo.moduleUrl("tobby.widgets", "assets/images/logo.png");
+	        menuFrame.setFrameIcon(logoUrl);
+	        menuFrame.setTitle("菜单");
+
+	        var params = { label: "工具", icon: "assets/images/icons/i_globe.png", id: "menuMap", positionAsPct: 20, visible: true };
+	        var toolMenu = new tobby.widgets.Menu(params);
+	        toolMenu.addMenuItem({ label: "小部件测试", icon: "assets/images/icons/i_highway.png", visible: true, onMenuItemClick: testMenuItemClick1 });
+	        //debugger;
+	        menuFrame.addChild(toolMenu);
+	        toolMenu.startup();
+
+	        var params2 = { label: "帮助", icon: "assets/images/icons/i_help.png", id: "menuHelp", positionAsPct: 40, visible: true };
+	        var helpMenu = new tobby.widgets.Menu(params2);
+	        helpMenu.addMenuItem({ label: "资源", icon: "assets/images/icons/i_resources.png", visible: true, onMenuItemClick: testMenuItemClick2 });
+	        menuFrame.addChild(helpMenu);
+	        helpMenu.startup();
+	    }
+
+	    function createWidget() {
+	        testWidget = new tobby.widgets._BaseWidget();
+	        testWidget.setTitle("小部件测试");
+	        testWidget.setMap(map);
+	        testWidget.startup();
+
+	          testWidget2 = new tobby.widgets._BaseWidget();
+	        testWidget2.setTitle("小部件测试2");
+	        testWidget2.setMap(map);
+	        testWidget2.startup();
+	    }
+
+	    function testMenuItemClick1(evt) {
+	        dojo.publish("showWidget", [testWidget]);
+	    }
+
+	    function testMenuItemClick2(evt) {
+	        dojo.publish("showWidget", [testWidget2]);
+	    }
+	</script>
+</head>
+<body class="soria">    
+     <div id="map"  style="position: relative; height: 1000px; border: 1px solid #000;"></div>	
+     <div dojoType="tobby.widgets.MenuFrame" id='menuFrame'></div>
+     <div dojoType="tobby.widgets.WidgetContainer"></div>
+</body>
+</html>
