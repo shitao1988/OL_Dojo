@@ -393,3 +393,60 @@ a:link {
 a:visited {
 	color: #EE3;
 }
+
+
+
+.tobbyBookmarkTable {
+	width: 208px;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+.tobbyBookmarkLabel {
+	position: relative;
+	float: left;
+	width: 136px;
+	overflow: hidden;
+	line-height: 20px;
+	height: 20px;
+	white-space: nowrap;
+	margin-left: 5px;
+	font-size: 12px;
+	text-align: left;
+	vertical-align: middle;
+	color: black;
+	font-family: Verdana, Helvetica, sans-serif;
+	cursor: pointer;
+}
+.tobbyBookmarks {
+	width: 215px;
+	border-style: solid;
+	border-color: #769DC0;
+	border-width: 1px;
+}
+.tobbyBookmarkItem {
+	width: 208px;
+	height: 20px;
+}
+.tobbyAddBookmark {
+	}
+.tobbyBookmarkHighlight {
+	background-color: #D9E6F9;
+}
+.tobbyBookmarkEditImage {
+	float: right;
+	width: 30px;
+	cursor: pointer;
+	background: transparent url(../../assets/images/widget/edit.png) no-repeat scroll center center;
+}
+.tobbyBookmarkRemoveImage {
+	float: right;
+	width: 30px;
+	cursor: pointer;
+	background: transparent url(../../assets/images/widget/close.gif) no-repeat scroll center center;
+}
+.tobbyBookmarkEditBox {
+	position: fixed;
+	font-size: 12px;
+	height: 13px;
+	width: 180px;
+}
